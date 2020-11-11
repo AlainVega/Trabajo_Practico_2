@@ -9,7 +9,7 @@
 #define ENTRADA_H_
 
 // valores de distancias
-#define PUNTOS 9
+#define PUNTOS 4
 
 /*int distancias[PUNTOS][PUNTOS] =
  {{0,15,13,5,0,0,0,0,0},
@@ -31,6 +31,6 @@ int distancias[PUNTOS][PUNTOS] =
 
 
 char x = 'A'; // punto origen
-char y = 'I'; // punto destino
+char y = 'D'; // punto destino
 
 #endif /* ENTRADA_H_ */

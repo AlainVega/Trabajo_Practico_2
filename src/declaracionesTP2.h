@@ -9,8 +9,15 @@
 #define DECLARACIONESTP2_H_
 #include "entrada.h"
 
+
 void ImprimirMatriz(int distancias[PUNTOS][PUNTOS]);
 
 int CaminosPosibles(char origen, char destino);
+
+void PushPila(char PILA[PUNTOS], char elemento);
+
+char PopPila(char PILA[PUNTOS]);
+
+
 
 #endif /* DECLARACIONESTP2_H_ */

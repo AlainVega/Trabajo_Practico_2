@@ -20,11 +20,6 @@ int main(void) {
 	ImprimirMatriz(distancias);
 }
 
-int CaminosPosibles(char origen, char destino) {
-	int cant_caminosposibles = 0;
-	return cant_caminosposibles;
-}
-
 void ImprimirMatriz(int distancias[PUNTOS][PUNTOS]) {
 	int i, j;
 	for (i = 0; i < PUNTOS; i++){
@@ -56,13 +51,13 @@ void CalcularCaminos(char origen, char destino) {
 		}
 	}*/
 	int band_vuelta = 0;
-	for (i = band_vuelta == 0 ? 0 : next; i < PUNTOS; i++) {
+	for (i = band_vuelta == 1 ? next : 0; i < PUNTOS; i++) {
 		if (distancias[next][i] != 0) {
 			if (i + 'A' == destino) {
 				puts("Camino encontrado.");
 				printf("Distancia: %d.\n", distancia);
 				puts("Recorrido:");
-				// TODO: Printear recorrido
+				//PrintearRecorrido(PILA);
 			}
 			//Push(i) de Alain
 			distancia += distancias[next][i];

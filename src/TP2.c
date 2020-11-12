@@ -69,7 +69,7 @@ void CalcularCaminos(char origen, char destino) {
 			band_vuelta = 1;
 		}
 	}
- }
+}
 
 void PushPila(char PILA[PUNTOS], char elemento) {
 	if (ULTIMO >= PUNTOS - 1) { //preguntamos si la pila esta llena

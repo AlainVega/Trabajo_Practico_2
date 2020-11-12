@@ -76,21 +76,21 @@ void CalcularCaminos(char origen, char destino) {
 	}
  }
 
-void PushPila(char PILA[PUNTOS], char elemento){
+void PushPila(char PILA[PUNTOS], char elemento) {
 	if (ULTIMO >= PUNTOS - 1) { //preguntamos si la pila esta llena
 		printf("ERROR Pila llena, checkear la dimension del array pila\n");
-	}else {
+	} else {
 		//no esta llena, podemos agregar un elemento
 		PILA[ULTIMO + 1] = elemento;
 		ULTIMO++;
 	}
 }
 
-char PopPila(char PILA[PUNTOS]){
+char PopPila(char PILA[PUNTOS]) {
 	if (ULTIMO <= 0) {
 		printf("ERROR Pila vacia, no es posible hacer un pop de una pila vacia.\n");
 		return '?'; //retornamos ? a modo de saber que la pila esta vacia
-	}else {
+	} else {
 		// no esta vacia
 		return PILA[ULTIMO--]; //retornamos el elemento al que hicimos pop
 	}

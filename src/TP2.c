@@ -35,38 +35,47 @@ void CalcularCaminos(char origen, char destino) {
 	// destino: columna de destino
 	int i;
 	int next = destino - 'A';
-	int previous = 0;
 	int distancia = 0;
-	/*while (1) {
-		for (i = 0; i < PUNTOS; i++) {
-			if (distancias[next][i] != 0) {
-				if (distancias[next][i] != 0 && i + 'A' == destino) {
-					puts("Camino encontrado");
-					printf("Distancia: %d.\n", distancia);
-				}
-				//Push() de Alain
-				distancia += distancias[next][i];
-				next = i;
-			}
-		}
-	}*/
 	int band_vuelta = 0;
-	for (i = band_vuelta == 1 ? next : 0; i < PUNTOS; i++) {
-		if (distancias[next][i] != 0) {
-			if (i + 'A' == destino) {
-				puts("Camino encontrado.");
-				printf("Distancia: %d.\n", distancia);
-				puts("Recorrido:");
-				//PrintearRecorrido(PILA);
+	int next_fila, next_columna;
+	while (1) {
+		for (i = band_vuelta == 1 ? next_columna : 0; i < PUNTOS; i++) {
+			// TODO: QUE HACER SI DISTANCIAS[][] ES < 0?
+			if (distancias[next_fila][i] > 0) {
+				if (BuscarNodo(PILA, i + 'A') == 0) {
+					// Se intenta volver a un espacio ya recorrido, ignorar
+					continue;
+				}
+				PushPila(PILA, i + 'A');
+				distancia += distancias[next_fila][i];
+				if (i + 'A' == destino) {
+					// Se llego al destino, printear el camino y volver
+					puts("Camino encontrado.");
+					printf("Distancia: %d.\n", distancia);
+					puts("Recorrido:");
+					//PrintearRecorrido(PILA);
+					band_vuelta = 1;
+					next_fila = PILA[ULTIMO - 1];
+					// TODO: Que hacer con esta linea si estamos en la ultima columna?
+					next_columna = PILA[ULTIMO - 2] + 1;
+					PopPila(PILA);
+				}
+				else {
+					// Se encontro un nodo al que se puede seguir, seguirlo
+					next_fila = i;
+					next_columna = 0;
+					band_vuelta = 0;
+				}
 			}
-			//Push(i) de Alain
-			distancia += distancias[next][i];
-			previous = i;
-			next = i;
-		}
-		else {
-			next = previous;
-			band_vuelta = 1;
+			else {
+				if (i == PUNTOS - 1) {
+					// Llegamos a la ultima columna de una fila y no se entro a ningun camino, volver
+					band_vuelta = 1;
+					next_fila = PILA[ULTIMO - 1];
+					next_columna = PILA[ULTIMO - 2] + 1;
+					PopPila();
+				}
+			}
 		}
 	}
 }

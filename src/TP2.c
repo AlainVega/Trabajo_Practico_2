@@ -71,6 +71,11 @@ void CalcularCaminos(char origen, char destino) {
 	}
 }
 
+/*
+ * Funcion PushPila: para agregar un elemento a la pila.
+ * Recibe el vector pila y el elemento para introducir en la pila.
+ * No retorna nada.
+ */
 void PushPila(char PILA[PUNTOS], char elemento) {
 	if (ULTIMO >= PUNTOS - 1) { //preguntamos si la pila esta llena
 		printf("ERROR Pila llena, checkear la dimension del array pila\n");
@@ -81,6 +86,11 @@ void PushPila(char PILA[PUNTOS], char elemento) {
 	}
 }
 
+/*
+ * Funcion PopPila: para sacar 1 elemento de la pila.
+ * Recibe el vector pila.
+ * Retorna el elemento que se saco de la pila.
+ */
 char PopPila(char PILA[PUNTOS]) {
 	if (ULTIMO <= 0) {
 		printf("ERROR Pila vacia, no es posible hacer un pop de una pila vacia.\n");
@@ -88,5 +98,38 @@ char PopPila(char PILA[PUNTOS]) {
 	} else {
 		// no esta vacia
 		return PILA[ULTIMO--]; //retornamos el elemento al que hicimos pop
+	}
+}
+
+/*
+ * Funcion BuscarNodo: para buscar si hay un nodo anotado en la pila.
+ * Recibe la pila y el indice el cual representa un nodo.
+ * Retorna 1 si el nodo esta en la pila y 0 si no esta.
+ */
+int BuscarNodo(char PILA[PUNTOS], int indice){
+	int i, booleano;
+	for (i = 0; i < ULTIMO; i++){
+		if (PILA[i] == PILA[indice]) {
+			booleano = 1; //ese valor si esta en la pila
+		}else {
+			booleano = 0;
+		}
+	}
+	return booleano;
+}
+
+/*
+ *Funcion ImprimirCamino: para imprimir el camino actual (el que esta en la pila)
+ *Recibe la pila y la suma total de distancias de origen a destino
+ *No retorna nada.
+ */
+void ImprimirCamino(char PILA[PUNTOS], int suma){
+	int i;
+	for (i = 0; i < ULTIMO; i++) {
+		if (i == ULTIMO) {
+			printf("%c = %d\n", PILA[i], suma);
+		}else {
+			printf("%c -->",PILA[i]);
+		}
 	}
 }

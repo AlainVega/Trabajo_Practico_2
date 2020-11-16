@@ -12,8 +12,6 @@
 
 void ImprimirMatriz(int distancias[PUNTOS][PUNTOS]);
 
-int CaminosPosibles(char origen, char destino);
-
 void PushPila(char PILA[PUNTOS], char elemento);
 
 char PopPila(char PILA[PUNTOS]);
@@ -22,6 +20,6 @@ int BuscarNodo(char PILA[PUNTOS], int indice);
 
 void ImprimirCamino(char PILA[PUNTOS], int suma);
 
-
+void CalcularCaminos(char origen, char destino);
 
 #endif /* DECLARACIONESTP2_H_ */

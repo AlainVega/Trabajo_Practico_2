@@ -14,9 +14,11 @@
 #include "declaracionesTP2.h"
 
 char PILA[PUNTOS]; // pila que contiene los nodos de un camino actual
+
 int ULTIMO = 0; // indice que indica cual es el ultimo elemento de la pila
 
 int main(void) {
+	PILA[0] = x;
 	ImprimirMatriz(distancias);
 	CalcularCaminos(x, y);
 }
@@ -35,16 +37,15 @@ void CalcularCaminos(char origen, char destino) {
 	// origen: fila de la que partis
 	// destino: columna de destino
 	int i;
-	int next = destino - 'A';
 	int distancia = 0;
 	int band_vuelta = 0;
-	int next_fila, next_columna;
+	int next_fila = origen - 'A', next_columna = 0;
 	int band_salir = 0;
 	while (band_salir == 0) {
 		for (i = band_vuelta == 1 ? next_columna : 0; i < PUNTOS; i++) {
 			// TODO: QUE HACER SI DISTANCIAS[][] ES < 0?
 			if (distancias[next_fila][i] > 0) {
-				if (BuscarNodo(PILA, i) == 0) {
+				if (BuscarNodo(PILA, i) == 1) {
 					// Se intenta volver a un espacio ya recorrido, ignorar
 					continue;
 				}
@@ -55,19 +56,21 @@ void CalcularCaminos(char origen, char destino) {
 					puts("Camino encontrado.");
 					printf("Distancia: %d.\n", distancia);
 					puts("Recorrido:");
-					ImprimirCamino(PILA);
+					ImprimirCamino(PILA, distancia);
 					band_vuelta = 1;
-					if (PILA[ULTIMO - 2] + 1 == PUNTOS) {
+					if (PILA[ULTIMO] - 'A' == PUNTOS - 1 ) {
 						// Se va a volver 2 veces.
-						next_fila = PILA[ULTIMO - 2];
-						next_columna = PILA[ULTIMO - 3] + 1;
+						next_fila = PILA[ULTIMO - 2] - 'A';
+						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
 						PopPila(PILA);
 						PopPila(PILA);
+						break;
 					}
 					else {
-						next_fila = PILA[ULTIMO - 1];
-						next_columna = PILA[ULTIMO - 2] + 1;
+						next_fila = PILA[ULTIMO] - 'A';
+						next_columna =( PILA[ULTIMO - 1] + 1 ) - 'A';
 						PopPila(PILA);
+						break;
 					}
 					if (next_fila + 'A' == origen && next_columna == PUNTOS - 1) {
 						band_salir = 1;
@@ -78,6 +81,7 @@ void CalcularCaminos(char origen, char destino) {
 					next_fila = i;
 					next_columna = 0;
 					band_vuelta = 0;
+					break;
 				}
 			}
 			else {
@@ -89,15 +93,17 @@ void CalcularCaminos(char origen, char destino) {
 					// Llegamos a la ultima columna de una fila y no se entro a ningun camino, volver
 					if (PILA[ULTIMO - 2] + 1 == PUNTOS) {
 						// Se va a volver 2 veces.
-						next_fila = PILA[ULTIMO - 2];
-						next_columna = PILA[ULTIMO - 3] + 1;
+						next_fila = PILA[ULTIMO - 2] - 'A';
+						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
 						PopPila(PILA);
 						PopPila(PILA);
+						break;
 					}
 					else {
-						next_fila = PILA[ULTIMO - 1];
-						next_columna = PILA[ULTIMO - 2] + 1;
+						next_fila = PILA[ULTIMO] - 'A';
+						next_columna =( PILA[ULTIMO - 1] + 1 ) - 'A';
 						PopPila(PILA);
+						break;
 					}
 				}
 			}
@@ -161,7 +167,7 @@ void ImprimirCamino(char PILA[PUNTOS], int suma) {
 		if (i == ULTIMO) {
 			printf("%c = %d\n", PILA[i], suma);
 		}else {
-			printf("%c -->",PILA[i]);
+			printf("%c -->", PILA[i]);
 		}
 	}
 }

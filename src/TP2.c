@@ -50,13 +50,10 @@ void CalcularCaminos(char origen, char destino) {
 					continue;
 				}
 				PushPila(PILA, i + 'A');
-				distancia += distancias[next_fila][i];
 				if (i + 'A' == destino) {
 					// Se llego al destino, printear el camino y volver
 					puts("Camino encontrado.");
-					printf("Distancia: %d.\n", distancia);
-					puts("Recorrido:");
-					ImprimirCamino(PILA, distancia);
+					distancia = ImprimirCamino(PILA);
 					band_vuelta = 1;
 					if (next_fila + 'A' == origen && next_columna == PUNTOS - 1) {
 						band_salir = 1;
@@ -68,14 +65,12 @@ void CalcularCaminos(char origen, char destino) {
 						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
 						PopPila(PILA);
 						PopPila(PILA);
-						distancia -= distancias[next_fila][i];
 						break;
 					}
 					else {
 						next_fila = PILA[ULTIMO] - 'A';
 						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
 						PopPila(PILA);
-						distancia -= distancias[next_fila][i];
 						break;
 					}
 				}
@@ -141,6 +136,7 @@ char PopPila(char PILA[PUNTOS]) {
 		return '?'; //retornamos ? a modo de saber que la pila esta vacia
 	} else {
 		// no esta vacia
+		PILA[ULTIMO] = '\0';
 		return PILA[ULTIMO--]; //retornamos el elemento al que hicimos pop
 	}
 }
@@ -165,8 +161,17 @@ int BuscarNodo(char PILA[PUNTOS], int indice) {
  *Recibe la pila y la suma total de distancias de origen a destino
  *No retorna nada.
  */
-void ImprimirCamino(char PILA[PUNTOS], int suma) {
-	int i;
+
+int ImprimirCamino(char PILA[PUNTOS]) {
+	int i, suma, fila, columna;
+	suma = 0;
+	//calculamos la suma de las distancias
+	for (i = 0; i < ULTIMO; i++) {
+		fila = PILA[ULTIMO - (i + 1)] - 'A';
+		columna = PILA[ULTIMO - i] - 'A';
+		suma = suma + distancias[fila][columna];
+	}
+	//imprimimos la pila con el camino
 	for (i = 0; i <= ULTIMO; i++) {
 		if (i == ULTIMO) {
 			printf("%c = %d\n", PILA[i], suma);
@@ -174,4 +179,6 @@ void ImprimirCamino(char PILA[PUNTOS], int suma) {
 			printf("%c --> ", PILA[i]);
 		}
 	}
+	return suma;
 }
+

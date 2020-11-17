@@ -58,22 +58,25 @@ void CalcularCaminos(char origen, char destino) {
 					puts("Recorrido:");
 					ImprimirCamino(PILA, distancia);
 					band_vuelta = 1;
-					if (PILA[ULTIMO] - 'A' == PUNTOS - 1 ) {
+					if (next_fila + 'A' == origen && next_columna == PUNTOS - 1) {
+						band_salir = 1;
+						break;
+					}
+					if (PILA[ULTIMO] - 'A' == PUNTOS - 1) {
 						// Se va a volver 2 veces.
 						next_fila = PILA[ULTIMO - 2] - 'A';
 						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
 						PopPila(PILA);
 						PopPila(PILA);
+						distancia -= distancias[next_fila][i];
 						break;
 					}
 					else {
 						next_fila = PILA[ULTIMO] - 'A';
-						next_columna =( PILA[ULTIMO - 1] + 1 ) - 'A';
+						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
 						PopPila(PILA);
+						distancia -= distancias[next_fila][i];
 						break;
-					}
-					if (next_fila + 'A' == origen && next_columna == PUNTOS - 1) {
-						band_salir = 1;
 					}
 				}
 				else {
@@ -87,8 +90,9 @@ void CalcularCaminos(char origen, char destino) {
 			else {
 				// Hay un 0 en esta posicion
 				if (i == PUNTOS - 1) {
-					if (next_fila + 'A'  == origen) {
+					if (next_fila + 'A' == origen) {
 						band_salir = 1;
+						break;
 					}
 					// Llegamos a la ultima columna de una fila y no se entro a ningun camino, volver
 					if (PILA[ULTIMO - 2] + 1 == PUNTOS) {
@@ -101,7 +105,7 @@ void CalcularCaminos(char origen, char destino) {
 					}
 					else {
 						next_fila = PILA[ULTIMO] - 'A';
-						next_columna =( PILA[ULTIMO - 1] + 1 ) - 'A';
+						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
 						PopPila(PILA);
 						break;
 					}
@@ -166,7 +170,7 @@ void ImprimirCamino(char PILA[PUNTOS], int suma) {
 	for (i = 0; i < ULTIMO; i++) {
 		if (i == ULTIMO) {
 			printf("%c = %d\n", PILA[i], suma);
-		}else {
+		} else {
 			printf("%c -->", PILA[i]);
 		}
 	}

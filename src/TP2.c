@@ -167,11 +167,11 @@ int BuscarNodo(char PILA[PUNTOS], int indice) {
  */
 void ImprimirCamino(char PILA[PUNTOS], int suma) {
 	int i;
-	for (i = 0; i < ULTIMO; i++) {
+	for (i = 0; i <= ULTIMO; i++) {
 		if (i == ULTIMO) {
 			printf("%c = %d\n", PILA[i], suma);
 		} else {
-			printf("%c -->", PILA[i]);
+			printf("%c --> ", PILA[i]);
 		}
 	}
 }

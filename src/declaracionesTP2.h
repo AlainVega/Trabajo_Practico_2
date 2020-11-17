@@ -18,7 +18,7 @@ char PopPila(char PILA[PUNTOS]);
 
 int BuscarNodo(char PILA[PUNTOS], int indice);
 
-void ImprimirCamino(char PILA[PUNTOS], int suma);
+int ImprimirCamino(char PILA[PUNTOS]);
 
 void CalcularCaminos(char origen, char destino);
 

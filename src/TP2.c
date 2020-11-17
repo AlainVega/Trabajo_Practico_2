@@ -68,11 +68,12 @@ void CalcularCaminos(char origen, char destino) {
 						break;
 					}
 					else {
-						next_fila = PILA[ULTIMO] - 'A';
-						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
+						next_fila = PILA[ULTIMO - 1] - 'A';
+						next_columna = PILA[ULTIMO] + 1 - 'A';
 						PopPila(PILA);
 						break;
 					}
+
 				}
 				else {
 					// Se encontro un nodo al que se puede seguir, seguirlo
@@ -89,8 +90,9 @@ void CalcularCaminos(char origen, char destino) {
 						band_salir = 1;
 						break;
 					}
+					band_vuelta = 1;
 					// Llegamos a la ultima columna de una fila y no se entro a ningun camino, volver
-					if (PILA[ULTIMO - 2] + 1 == PUNTOS) {
+					if (PILA[ULTIMO] - 'A' == PUNTOS - 1) {
 						// Se va a volver 2 veces.
 						next_fila = PILA[ULTIMO - 2] - 'A';
 						next_columna = PILA[ULTIMO - 1] + 1 - 'A';

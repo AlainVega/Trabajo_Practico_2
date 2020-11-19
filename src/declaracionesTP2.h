@@ -18,8 +18,10 @@ char PopPila(char PILA[PUNTOS]);
 
 int BuscarNodo(char PILA[PUNTOS], int indice);
 
-int ImprimirCamino(char PILA[PUNTOS]);
+int ImprimirCamino(char PILA[PUNTOS],int ULTIMO , int bandera);
 
 void CalcularCaminos(char origen, char destino);
+
+void CopiarPila(char PILA[PUNTOS]);
 
 #endif /* DECLARACIONESTP2_H_ */

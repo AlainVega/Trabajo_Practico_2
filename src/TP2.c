@@ -14,8 +14,10 @@
 #include "declaracionesTP2.h"
 
 char PILA[PUNTOS]; // pila que contiene los nodos de un camino actual
-
+char PILACORTA[PUNTOS]; //pila con el camino mas corto
 int ULTIMO = 0; // indice que indica cual es el ultimo elemento de la pila
+int ULTIMO_MENOR = 0; // indice que indidca cual es el ultimo elemento de la pila del menor camino
+int distancia_menor = 0; //contiene la menor distancia posible
 
 int main(void) {
 	PILA[0] = x;
@@ -41,6 +43,7 @@ void CalcularCaminos(char origen, char destino) {
 	int band_vuelta = 0;
 	int next_fila = origen - 'A', next_columna = 0;
 	int band_salir = 0;
+	int band = 1;
 	while (band_salir == 0) {
 		for (i = band_vuelta == 1 ? next_columna : 0; i < PUNTOS; i++) {
 			// TODO: QUE HACER SI DISTANCIAS[][] ES < 0?
@@ -53,7 +56,12 @@ void CalcularCaminos(char origen, char destino) {
 				if (i + 'A' == destino) {
 					// Se llego al destino, printear el camino y volver
 					puts("Camino encontrado.");
-					distancia = ImprimirCamino(PILA);
+					if (band == 1){
+						distancia = ImprimirCamino(PILA, ULTIMO ,band);
+						band = 0;
+					}else {
+						distancia = ImprimirCamino(PILA, ULTIMO ,band);
+					}
 					band_vuelta = 1;
 					if (next_fila + 'A' == origen && next_columna == PUNTOS - 1) {
 						band_salir = 1;
@@ -61,7 +69,13 @@ void CalcularCaminos(char origen, char destino) {
 					}
 					if (PILA[ULTIMO] - 'A' == PUNTOS - 1) {
 						// Se va a volver 2 veces.
-						next_fila = PILA[ULTIMO - 2] - 'A';
+						if (PILA[ULTIMO - 1] == origen) {
+							next_fila = PILA[ULTIMO - 1] - 'A';
+							band_salir = 1;
+							break;
+						}else {
+							next_fila = PILA[ULTIMO - 2] - 'A';
+						}
 						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
 						PopPila(PILA);
 						PopPila(PILA);
@@ -94,15 +108,21 @@ void CalcularCaminos(char origen, char destino) {
 					// Llegamos a la ultima columna de una fila y no se entro a ningun camino, volver
 					if (PILA[ULTIMO] - 'A' == PUNTOS - 1) {
 						// Se va a volver 2 veces.
-						next_fila = PILA[ULTIMO - 2] - 'A';
+						if (PILA[ULTIMO - 1] == origen ) {
+							next_fila = PILA[ULTIMO - 1] - 'A';
+							band_salir = 1;
+							break;
+						}else {
+							next_fila = PILA[ULTIMO - 2] - 'A';
+						}
 						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
 						PopPila(PILA);
 						PopPila(PILA);
 						break;
 					}
 					else {
-						next_fila = PILA[ULTIMO] - 'A';
-						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
+						next_fila = PILA[ULTIMO - 1] - 'A';
+						next_columna = PILA[ULTIMO ] + 1 - 'A';
 						PopPila(PILA);
 						break;
 					}
@@ -110,6 +130,9 @@ void CalcularCaminos(char origen, char destino) {
 			}
 		}
 	}
+	puts("=-=-=-=-=-=Camino mas corto=-=-=-=-=-=");
+	distancia_menor = ImprimirCamino(PILACORTA, ULTIMO_MENOR ,band);
+	printf("Distancia = %i", distancia_menor);
 }
 
 /*
@@ -150,7 +173,7 @@ char PopPila(char PILA[PUNTOS]) {
  */
 int BuscarNodo(char PILA[PUNTOS], int indice) {
 	int i, booleano = 0;
-	for (i = 0; i < ULTIMO; i++) {
+	for (i = 0; i <= ULTIMO; i++) {
 		if (PILA[i] == PILA[indice]) {
 			booleano = 1; //ese valor si esta en la pila
 		}
@@ -164,7 +187,7 @@ int BuscarNodo(char PILA[PUNTOS], int indice) {
  *No retorna nada.
  */
 
-int ImprimirCamino(char PILA[PUNTOS]) {
+int ImprimirCamino(char PILA[PUNTOS], int ULTIMO , int bandera) {
 	int i, suma, fila, columna;
 	suma = 0;
 	//calculamos la suma de las distancias
@@ -181,6 +204,21 @@ int ImprimirCamino(char PILA[PUNTOS]) {
 			printf("%c --> ", PILA[i]);
 		}
 	}
+	if (bandera == 1){
+		distancia_menor = suma;
+		ULTIMO_MENOR = ULTIMO;
+		CopiarPila(PILA);
+	}else if (suma < distancia_menor) {
+		distancia_menor = suma;
+		ULTIMO_MENOR = ULTIMO;
+		CopiarPila(PILA);
+	}
 	return suma;
 }
 
+void CopiarPila(char PILA[PUNTOS]){
+	int i;
+	for (i = 0; i <= ULTIMO; i++) {
+		PILACORTA[i] = PILA[i];
+	}
+}

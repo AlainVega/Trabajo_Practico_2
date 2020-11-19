@@ -9,7 +9,7 @@
 #define ENTRADA_H_
 
 // valores de distancias
-#define PUNTOS 4
+#define PUNTOS 9
 
 int distancias[PUNTOS][PUNTOS] =
  {{0,15,13,5,0,0,0,0,0},

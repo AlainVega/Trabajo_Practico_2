@@ -43,6 +43,8 @@ void ImprimirMatriz(int distancias[PUNTOS][PUNTOS]) {
  * entra en el, si llega a un nodo del cual no puede seguir mas (o es el destino),
  * vuelve un nodo atras y busca mas caminos, repite este proceso hasta terminar de
  * recorrer la fila origen.
+ * El camino que esta recorriendo actualmente se encuentra en la PILA, cuyos
+ * valores se van sacando y agregando mientras se recorren los nodos.
  */
 void CalcularCaminos(char origen, char destino) {
 	// origen: fila de la que partis

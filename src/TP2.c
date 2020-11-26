@@ -22,6 +22,8 @@ int distancia_menor = 0; //contiene la menor distancia posible
 int main(void) {
 	PILA[0] = x;
 	ImprimirMatriz(distancias);
+	x = toupper(x);
+	y = toupper(y);
 	CalcularCaminos(x, y);
 }
 
@@ -39,14 +41,12 @@ void CalcularCaminos(char origen, char destino) {
 	// origen: fila de la que partis
 	// destino: columna de destino
 	int i;
-	int distancia = 0;
 	int band_vuelta = 0;
 	int next_fila = origen - 'A', next_columna = 0;
 	int band_salir = 0;
 	int band = 1;
 	while (band_salir == 0) {
 		for (i = band_vuelta == 1 ? next_columna : 0; i < PUNTOS; i++) {
-			// TODO: QUE HACER SI DISTANCIAS[][] ES < 0?
 			if (distancias[next_fila][i] > 0) {
 				if (BuscarNodo(PILA, i) == 1) {
 					// Se intenta volver a un espacio ya recorrido, ignorar
@@ -57,23 +57,27 @@ void CalcularCaminos(char origen, char destino) {
 					// Se llego al destino, printear el camino y volver
 					puts("Camino encontrado.");
 					if (band == 1) {
-						distancia = ImprimirCamino(PILA, ULTIMO, band);
+						ImprimirCamino(PILA, ULTIMO, band);
 						band = 0;
-					} else {
-						distancia = ImprimirCamino(PILA, ULTIMO, band);
+					}
+					else {
+						ImprimirCamino(PILA, ULTIMO, band);
 					}
 					band_vuelta = 1;
 					if (next_fila + 'A' == origen && next_columna == PUNTOS - 1) {
 						band_salir = 1;
 						break;
 					}
+					// Estamos en la ultima columna de una fila
 					if (PILA[ULTIMO] - 'A' == PUNTOS - 1) {
-						// Se va a volver 2 veces.
+						// Se va a volver a la ultima columna del origen, salir del bucle
 						if (PILA[ULTIMO - 1] == origen) {
 							next_fila = PILA[ULTIMO - 1] - 'A';
 							band_salir = 1;
 							break;
-						} else {
+						}
+						// Se va a volver 2 veces.
+						else {
 							next_fila = PILA[ULTIMO - 2] - 'A';
 						}
 						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
@@ -112,7 +116,8 @@ void CalcularCaminos(char origen, char destino) {
 							next_fila = PILA[ULTIMO - 1] - 'A';
 							band_salir = 1;
 							break;
-						} else {
+						}
+						else {
 							next_fila = PILA[ULTIMO - 2] - 'A';
 						}
 						next_columna = PILA[ULTIMO - 1] + 1 - 'A';
@@ -132,7 +137,7 @@ void CalcularCaminos(char origen, char destino) {
 	}
 	puts("=-=-=-=-=-=Camino mas corto=-=-=-=-=-=");
 	distancia_menor = ImprimirCamino(PILACORTA, ULTIMO_MENOR, band);
-	printf("Distancia = %i", distancia_menor);
+	printf("Distancia: %i", distancia_menor);
 }
 
 /*

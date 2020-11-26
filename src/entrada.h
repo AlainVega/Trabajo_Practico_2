@@ -22,13 +22,6 @@ int distancias[PUNTOS][PUNTOS] =
  {0,0,0,0,0,0,0,0,0},
  {0,0,0,0,0,0,0,11,0}};
 
-
-/*int distancias[PUNTOS][PUNTOS] =
- {{1,1,3},
- {0,0,1},
- {0,0,0}};
-*/
-
 char x = 'A'; // punto origen
 char y = 'H'; // punto destino
 

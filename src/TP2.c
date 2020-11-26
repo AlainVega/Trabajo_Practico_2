@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "entrada.h"
 #include "declaracionesTP2.h"
 
@@ -29,8 +30,8 @@ int main(void) {
 
 void ImprimirMatriz(int distancias[PUNTOS][PUNTOS]) {
 	int i, j;
-	for (i = 0; i < PUNTOS; i++){
-		for (j = 0; j < PUNTOS; j++){
+	for (i = 0; i < PUNTOS; i++) {
+		for (j = 0; j < PUNTOS; j++) {
 			printf("| %d ", distancias[i][j]);
 		}
 		printf("| \n");

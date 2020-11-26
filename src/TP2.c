@@ -111,12 +111,13 @@ void CalcularCaminos(char origen, char destino) {
 					band_vuelta = 1;
 					// Llegamos a la ultima columna de una fila y no se entro a ningun camino, volver
 					if (PILA[ULTIMO] - 'A' == PUNTOS - 1) {
-						// Se va a volver 2 veces.
+						// Se va a volver a volver a la ultima columna de la fila origen
 						if (PILA[ULTIMO - 1] == origen) {
 							next_fila = PILA[ULTIMO - 1] - 'A';
 							band_salir = 1;
 							break;
 						}
+						// Se va a volver 2 veces.
 						else {
 							next_fila = PILA[ULTIMO - 2] - 'A';
 						}

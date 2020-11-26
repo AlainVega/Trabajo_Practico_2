@@ -22,15 +22,14 @@ int distancias[PUNTOS][PUNTOS] =
  {0,0,0,0,0,0,0,0,0},
  {0,0,0,0,0,0,0,11,0}};
 
-/*
-int distancias[PUNTOS][PUNTOS] =
- {{0,2,1,20},
- {0,0,0,4},
- {0,3,0,8},
- {0,0,0,0,}};
+
+/*int distancias[PUNTOS][PUNTOS] =
+ {{1,1,3},
+ {0,0,1},
+ {0,0,0}};
 */
 
 char x = 'A'; // punto origen
-char y = 'I'; // punto destino
+char y = 'H'; // punto destino
 
 #endif /* ENTRADA_H_ */

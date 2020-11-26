@@ -37,6 +37,12 @@ void ImprimirMatriz(int distancias[PUNTOS][PUNTOS]) {
 	}
 }
 
+/*
+ * Recorre la matriz empezando por la fila origen y cada vez que encuentra un camino
+ * entra en el, si llega a un nodo del cual no puede seguir mas (o es el destino),
+ * vuelve un nodo atras y busca mas caminos, repite este proceso hasta terminar de
+ * recorrer la fila origen.
+ */
 void CalcularCaminos(char origen, char destino) {
 	// origen: fila de la que partis
 	// destino: columna de destino
@@ -210,7 +216,8 @@ int ImprimirCamino(char PILA[PUNTOS], int ULTIMO, int bandera) {
 			printf("%c --> ", PILA[i]);
 		}
 	}
-	if (bandera == 1){
+	//Se guarda el primer valor para luego compararlo con los siguientes
+	if (bandera == 1) {
 		distancia_menor = suma;
 		ULTIMO_MENOR = ULTIMO;
 		CopiarPila(PILA);
